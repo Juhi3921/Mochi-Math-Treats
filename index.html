@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mochi Math Café — a cozy pastel calculator</title>
+    <meta name="description" content="A super cute Tamagotchi-style café calculator with pastel buttons, a pixel cat, drifting clouds and floating hearts." />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Mochi Math Café" />
+    <meta property="og:description" content="A cozy pastel café calculator inspired by Tamagotchi and Japanese cafés." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter Metadata -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@MochiMathTreats" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main class="relative min-h-screen w-full overflow-hidden pb-20">
+      <!-- Drifting Clouds -->
+      <div id="clouds-container" aria-hidden class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div class="cloud-shape absolute" style="top: 6%; width: 80px; height: 40px; opacity: 0.7; animation: mm-float-cloud 70s linear infinite; animation-delay: -0s;"></div>
+        <div class="cloud-shape absolute" style="top: 18%; width: 120px; height: 60px; opacity: 0.55; animation: mm-float-cloud 110s linear infinite; animation-delay: -20s;"></div>
+        <div class="cloud-shape absolute" style="top: 42%; width: 90px; height: 45px; opacity: 0.5; animation: mm-float-cloud 90s linear infinite; animation-delay: -40s;"></div>
+        <div class="cloud-shape absolute" style="top: 70%; width: 140px; height: 70px; opacity: 0.4; animation: mm-float-cloud 130s linear infinite; animation-delay: -10s;"></div>
+      </div>
+
+      <!-- Sparkles Container -->
+      <div id="sparkles-container" aria-hidden class="pointer-events-none absolute inset-0"></div>
+
+      <!-- Header -->
+      <header class="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 pt-5">
+        <div class="flex items-center gap-3">
+          <div class="cafe-card flex h-12 w-12 items-center justify-center text-2xl" aria-hidden>
+            🍡
+          </div>
+          <div class="leading-tight">
+            <h1 class="text-2xl font-bold text-cocoa">Mochi Math Café</h1>
+            <p class="text-xs text-muted-foreground">a simple cozy calculator</p>
+          </div>
+          <!-- Cat Mascot Waving -->
+          <div class="relative ml-1 hidden sm:block" aria-hidden>
+            <div class="text-3xl" style="animation: mm-bounce-soft 2.4s ease-in-out infinite">
+              🐱
+            </div>
+            <span class="absolute -right-2 top-0 text-lg" style="transform-origin: 80% 80%; animation: mm-wave 1.6s ease-in-out infinite">
+              👋
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Section -->
+      <section class="relative z-10 mx-auto mt-8 grid max-w-6xl gap-8 px-5 lg:grid-cols-[1.05fr_1fr]">
+        <!-- Screen Panel -->
+        <div class="cafe-card relative p-6">
+          <!-- Decorative Shelf -->
+          <div class="mb-4 flex items-center justify-between text-2xl" aria-hidden>
+            <div class="flex gap-2"></div>
+            <div class="flex gap-2">
+              <span class="inline-block h-3 w-3 rounded-full" style="background: #ffd1dc; box-shadow: 0 0 12px currentColor; color: #ffd1dc; animation: mm-bounce-soft 2.6s ease-in-out infinite; animation-delay: 0s;"></span>
+              <span class="inline-block h-3 w-3 rounded-full" style="background: #ffe0b3; box-shadow: 0 0 12px currentColor; color: #ffe0b3; animation: mm-bounce-soft 2.6s ease-in-out infinite; animation-delay: 0.15s;"></span>
+              <span class="inline-block h-3 w-3 rounded-full" style="background: #c8f7c5; box-shadow: 0 0 12px currentColor; color: #c8f7c5; animation: mm-bounce-soft 2.6s ease-in-out infinite; animation-delay: 0.3s;"></span>
+              <span class="inline-block h-3 w-3 rounded-full" style="background: #d6c7ff; box-shadow: 0 0 12px currentColor; color: #d6c7ff; animation: mm-bounce-soft 2.6s ease-in-out infinite; animation-delay: 0.45s;"></span>
+              <span class="inline-block h-3 w-3 rounded-full" style="background: #bee3f8; box-shadow: 0 0 12px currentColor; color: #bee3f8; animation: mm-bounce-soft 2.6s ease-in-out infinite; animation-delay: 0.6s;"></span>
+              <span class="inline-block h-3 w-3 rounded-full" style="background: #ffd1dc; box-shadow: 0 0 12px currentColor; color: #ffd1dc; animation: mm-bounce-soft 2.6s ease-in-out infinite; animation-delay: 0.75s;"></span>
+            </div>
+            <div class="flex gap-2"></div>
+          </div>
+
+          <!-- Cafe Screen -->
+          <div class="cafe-screen relative mx-auto aspect-5/4 w-full max-w-md p-5">
+            <div class="absolute left-6 top-4 z-10">
+              <div class="speech-bubble" id="speech-bubble">Let's make it sweet!</div>
+            </div>
+
+            <!-- Mascot & Steam -->
+            <div class="relative flex h-full w-full items-end justify-center">
+              <!-- Steam Puffs -->
+              <div aria-hidden class="pointer-events-none absolute bottom-16 left-6">
+                <span class="absolute block h-3 w-3 rounded-full bg-white/80" style="left: 0px; animation: mm-steam 3s ease-out infinite; animation-delay: 0s;"></span>
+                <span class="absolute block h-3 w-3 rounded-full bg-white/80" style="left: 8px; animation: mm-steam 3s ease-out infinite; animation-delay: 0.6s;"></span>
+                <span class="absolute block h-3 w-3 rounded-full bg-white/80" style="left: 16px; animation: mm-steam 3s ease-out infinite; animation-delay: 1.2s;"></span>
+              </div>
+
+              <!-- Pixel Cat Mascot -->
+              <div class="relative" style="animation: mm-breathe 3s ease-in-out infinite">
+                <span aria-hidden class="absolute -right-6 bottom-3 text-3xl" style="transform-origin: 0% 100%; animation: mm-wiggle 1.8s ease-in-out infinite">
+                  〰️
+                </span>
+
+                <div class="relative flex h-28 w-28 items-center justify-center rounded-[28%] border-4" style="background: color-mix(in oklab, var(--peach) 55%, white); border-color: color-mix(in oklab, var(--cocoa) 25%, white); boxShadow: inset 0 -8px 0 color-mix(in oklab, var(--cocoa) 10%, transparent);">
+                  <!-- Ear Left -->
+                  <span class="absolute -top-3 left-2 h-0 w-0" style="border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 18px solid color-mix(in oklab, var(--peach) 55%, white); transform: rotate(-18deg);"></span>
+                  <!-- Ear Right -->
+                  <span class="absolute -top-3 right-2 h-0 w-0" style="border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 18px solid color-mix(in oklab, var(--peach) 55%, white); transform: rotate(18deg);"></span>
+
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="flex gap-3">
+                      <!-- Eye left & eye right -->
+                      <span class="block h-3 w-3 rounded-full bg-cocoa" style="animation: mm-blink 4s ease-in-out infinite; animation-delay: 0s;"></span>
+                      <span class="block h-3 w-3 rounded-full bg-cocoa" style="animation: mm-blink 4s ease-in-out infinite; animation-delay: 0.4s;"></span>
+                    </div>
+                    <div class="mt-1 text-base font-bold text-cocoa">ω</div>
+                    <!-- Pink cheeks -->
+                    <div class="absolute left-2 top-14 h-2 w-3 rounded-full" style="background: color-mix(in oklab, var(--pink) 70%, white);"></div>
+                    <div class="absolute right-2 top-14 h-2 w-3 rounded-full" style="background: color-mix(in oklab, var(--pink) 70%, white);"></div>
+                  </div>
+                </div>
+
+                <div class="mx-auto -mt-2 h-3 w-10 rounded-full" style="background: color-mix(in oklab, var(--pink) 60%, white);"></div>
+              </div>
+            </div>
+
+            <!-- Display -->
+            <div id="calc-display" class="absolute inset-x-5 bottom-4 rounded-2xl bg-white/70 px-4 py-2 text-right font-display text-3xl font-bold text-cocoa shadow-inner backdrop-blur-sm tabular-nums">
+              0
+            </div>
+          </div>
+
+          <p class="mt-4 text-center text-sm text-muted-foreground">
+            Tap a treat and take an order ♡
+          </p>
+        </div>
+
+        <!-- Order Panel -->
+        <div class="cafe-card p-6">
+          <h2 class="mb-4 text-xl font-bold text-cocoa">Order Panel</h2>
+
+          <!-- Keypad Grid -->
+          <div class="grid grid-cols-4 gap-3">
+            <button id="btn-clear" class="cafe-button col-span-2" type="button">AC</button>
+            <button id="btn-backspace" class="cafe-button" type="button" aria-label="Backspace">⌫</button>
+            <button id="btn-op-berry" class="cafe-button op-berry flex flex-col items-center gap-0 leading-tight" type="button" aria-label="Divide" title="Strawberry">
+              <span class="text-xl">🍓</span>
+              <span class="text-[10px] font-bold opacity-70">Divide</span>
+            </button>
+
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="7">7</button>
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="8">8</button>
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="9">9</button>
+            <button id="btn-op-cupcake" class="cafe-button op-cupcake flex flex-col items-center gap-0 leading-tight" type="button" aria-label="Multiply" title="Cupcake">
+              <span class="text-xl">🧁</span>
+              <span class="text-[10px] font-bold opacity-70">Multiply</span>
+            </button>
+
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="4">4</button>
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="5">5</button>
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="6">6</button>
+            <button id="btn-op-matcha" class="cafe-button op-matcha flex flex-col items-center gap-0 leading-tight" type="button" aria-label="Subtract" title="Matcha">
+              <span class="text-xl">🍵</span>
+              <span class="text-[10px] font-bold opacity-70">Subtract</span>
+            </button>
+
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="1">1</button>
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="2">2</button>
+            <button class="cafe-button text-xl btn-digit" type="button" data-digit="3">3</button>
+            <button id="btn-op-latte" class="cafe-button op-latte flex flex-col items-center gap-0 leading-tight" type="button" aria-label="Add" title="Latte">
+              <span class="text-xl">☕</span>
+              <span class="text-[10px] font-bold opacity-70">Add</span>
+            </button>
+
+            <button class="cafe-button text-xl btn-digit col-span-2" type="button" data-digit="0">0</button>
+            <button id="btn-dot" class="cafe-button text-xl" type="button">.</button>
+            <button id="btn-serve-heart" class="cafe-button serve-btn text-base" type="button" aria-label="Serve">♡</button>
+          </div>
+
+          <!-- Serve Button -->
+          <button id="btn-serve-large" type="button" class="cafe-button serve-btn mt-4 w-full py-4 text-lg">
+            Serve Order ✨
+          </button>
+
+          <!-- Receipt Container -->
+          <div id="receipt-container" class="mt-6"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Main Logic Script -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
