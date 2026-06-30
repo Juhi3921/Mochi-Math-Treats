@@ -11,22 +11,18 @@
     <meta property="og:description" content="A cozy pastel café calculator inspired by Tamagotchi and Japanese cafés." />
     <meta property="og:type" content="website" />
     
-    <!-- Twitter Metadata -->
+    <!-- Twitter  -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@MochiMathTreats" />
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet" />
     
-    <!-- Link to our clean styles.css -->
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
-    <!-- 1. BACKGROUND LAYERS (Clouds and Twinkling Stars) -->
-    
-    <!-- Drifting Clouds in the sky -->
+  
     <div id="clouds-container" aria-hidden="true" class="clouds-layer">
       <div class="cloud-shape" style="position: absolute; top: 6%; width: 80px; height: 40px; opacity: 0.7; animation: mm-float-cloud 70s linear infinite; animation-delay: 0s;"></div>
       <div class="cloud-shape" style="position: absolute; top: 18%; width: 120px; height: 60px; opacity: 0.55; animation: mm-float-cloud 110s linear infinite; animation-delay: -20s;"></div>
@@ -34,23 +30,14 @@
       <div class="cloud-shape" style="position: absolute; top: 70%; width: 140px; height: 70px; opacity: 0.4; animation: mm-float-cloud 130s linear infinite; animation-delay: -10s;"></div>
     </div>
 
-    <!-- Twinkling Sparkles container (We will make them appear using JavaScript!) -->
     <div id="sparkles-container" aria-hidden="true" class="sparkles-layer"></div>
 
-    <!-- 2. HEADER SECTION (Logo, Title, and Waving Cat) -->
     <header class="header-container">
       <div class="header-title-box">
-        <div class="header-icon-badge" aria-hidden="true">
-          🍡
-        </div>
+       
         <div class="header-texts">
           <h1>Mochi Math Café</h1>
           <p>a simple cozy calculator</p>
-        </div>
-        <!-- Waving Mascot Cat -->
-        <div class="waving-mascot-box" aria-hidden="true">
-          <div class="waving-cat">🐱</div>
-          <span class="waving-hand">👋</span>
         </div>
       </div>
     </header>
@@ -58,10 +45,8 @@
     <!-- 3. MAIN APP SECTION -->
     <main class="main-wrapper">
       
-      <!-- LEFT SIDE: The Screen Card with Pixel Cat Mascot -->
       <div class="cafe-card">
         
-        <!-- Shelf Lights (The colorful circles bouncing on top) -->
         <div class="shelf-lights-container" aria-hidden="true">
           <div class="shelf-lights"></div>
           <div class="shelf-lights">
@@ -134,13 +119,10 @@
         </p>
       </div>
 
-      <!-- RIGHT SIDE: The Order Panel with keys -->
       <div class="cafe-card">
         <h2 class="order-panel-title">Order Panel</h2>
 
-        <!-- Keypad buttons grid -->
         <div class="button-grid">
-          <!-- Row 1 -->
           <button id="btn-clear" class="cafe-button span-2" type="button">AC</button>
           <button id="btn-backspace" class="cafe-button" type="button" aria-label="Backspace">⌫</button>
           <button id="btn-op-berry" class="cafe-button op-berry" type="button" aria-label="Divide" title="Strawberry">
@@ -148,7 +130,6 @@
             <span class="op-text">Divide</span>
           </button>
 
-          <!-- Row 2 -->
           <button class="cafe-button btn-digit" type="button" data-digit="7">7</button>
           <button class="cafe-button btn-digit" type="button" data-digit="8">8</button>
           <button class="cafe-button btn-digit" type="button" data-digit="9">9</button>
@@ -157,7 +138,6 @@
             <span class="op-text">Multiply</span>
           </button>
 
-          <!-- Row 3 -->
           <button class="cafe-button btn-digit" type="button" data-digit="4">4</button>
           <button class="cafe-button btn-digit" type="button" data-digit="5">5</button>
           <button class="cafe-button btn-digit" type="button" data-digit="6">6</button>
@@ -166,7 +146,6 @@
             <span class="op-text">Subtract</span>
           </button>
 
-          <!-- Row 4 -->
           <button class="cafe-button btn-digit" type="button" data-digit="1">1</button>
           <button class="cafe-button btn-digit" type="button" data-digit="2">2</button>
           <button class="cafe-button btn-digit" type="button" data-digit="3">3</button>
@@ -181,18 +160,15 @@
           <button id="btn-serve-heart" class="cafe-button serve-btn" type="button" aria-label="Serve">♡</button>
         </div>
 
-        <!-- Big Serve Button -->
         <button id="btn-serve-large" type="button" class="cafe-button serve-btn btn-large-serve">
-          Serve Order ✨
+          Serve Order 
         </button>
 
-        <!-- Receipt printing container -->
         <div id="receipt-container"></div>
       </div>
 
     </main>
 
-    <!-- Connect our script -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

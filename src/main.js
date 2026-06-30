@@ -1,24 +1,10 @@
-// --- CALCULATOR VARIABLES (These keep track of our math!) ---
 
-// This is the number currently shown on our cute calculator screen
 let currentNumber = "0";
-
-// This stores the first number when you want to do a math sum, like 5 + 3. (5 is the first number!)
 let firstNumber = null;
-
-// This stores the sweet treat operation we want to do (+, -, *, /)
 let selectedTreat = null;
-
-// If we just clicked a treat button (like ☕ Latte +), the next number we click should start fresh
 let startNewNumber = false;
-
-// If we just clicked the serve button, we are showing the result!
 let justServed = false;
-
-// This will store our order receipt so we can print it
 let currentReceipt = null;
-
-// --- DOM ELEMENTS (These connect our JavaScript to our HTML page!) ---
 const displayElement = document.getElementById("calc-display");
 const receiptContainer = document.getElementById("receipt-container");
 const clearButton = document.getElementById("btn-clear");
@@ -27,62 +13,48 @@ const dotButton = document.getElementById("btn-dot");
 const serveHeartButton = document.getElementById("btn-serve-heart");
 const serveLargeButton = document.getElementById("btn-serve-large");
 
-// --- HELPER FUNCTIONS ---
-
-// This function makes numbers look nice on the screen!
-// If it's too long, it rounds it up. If you divide by zero, it says "oops"!
 function makeNumberLookNice(num) {
   if (!Number.isFinite(num)) {
     return "oops";
   }
-  // Round to 5 decimal places so it fits nicely
   const rounded = Math.round(num * 100000) / 100000;
   const text = String(rounded);
   
-  // If the number is too long, we make it fit
   if (text.length > 12) {
     return rounded.toPrecision(8);
   }
   return text;
 }
 
-// This function does the actual math when you choose a treat!
 function doMath(num1, num2, treat) {
   if (treat === "latte") {
-    return num1 + num2; // Latte is Plus (+)
+    return num1 + num2; 
   }
   if (treat === "matcha") {
-    return num1 - num2; // Matcha is Minus (-)
+    return num1 - num2; 
   }
   if (treat === "cupcake") {
-    return num1 * num2; // Cupcake is Multiply (*)
+    return num1 * num2; 
   }
   // Berry is Divide (/)
   if (num2 === 0) {
-    return NaN; // Can't divide by zero!
+    return NaN; 
   }
   return num1 / num2;
 }
-
-// This function updates what you see on the screen and prints the receipt
 function updateScreen() {
   if (displayElement) {
     displayElement.innerText = currentNumber;
   }
   drawReceipt();
 }
-
-// This function prints out our receipt paper!
 function drawReceipt() {
   if (!receiptContainer) return;
 
-  // If there is no receipt to show, keep it hidden
   if (!currentReceipt) {
     receiptContainer.innerHTML = "";
     return;
   }
-
-  // Generate the HTML for our items
   const itemsHtml = currentReceipt.items
     .map(
       (item) => `
@@ -94,7 +66,6 @@ function drawReceipt() {
     )
     .join("");
 
-  // Insert the receipt paper layout into our container
   receiptContainer.innerHTML = `
     <div class="receipt-paper">
       <div style="text-align: center; font-weight: bold; font-family: var(--font-display);">— Mochi Math Café —</div>
@@ -109,11 +80,7 @@ function drawReceipt() {
   `;
 }
 
-// --- BUTTON CLICK HANDLERS ---
-
-// When you click a number button (0-9)
 function clickDigit(digit) {
-  // If we just clicked "Serve", start a whole new calculation!
   if (justServed) {
     currentNumber = digit;
     firstNumber = null;
@@ -125,7 +92,6 @@ function clickDigit(digit) {
     return;
   }
 
-  // If we just clicked an operator (like +), clear screen to type the second number
   if (startNewNumber) {
     currentNumber = digit;
     startNewNumber = false;
@@ -133,7 +99,6 @@ function clickDigit(digit) {
     return;
   }
 
-  // If screen shows 0, replace it. Otherwise, add the digit to the end
   if (currentNumber === "0") {
     currentNumber = digit;
   } else if (currentNumber.length < 12) {
@@ -142,7 +107,6 @@ function clickDigit(digit) {
   updateScreen();
 }
 
-// When you click the dot (.) button
 function clickDot() {
   if (justServed) {
     currentNumber = "0.";
@@ -161,15 +125,11 @@ function clickDot() {
     updateScreen();
     return;
   }
-
-  // Only add a dot if there isn't one already!
   if (!currentNumber.includes(".")) {
     currentNumber = currentNumber + ".";
   }
   updateScreen();
 }
-
-// When you click the backspace (⌫) button
 function clickBackspace() {
   if (startNewNumber || justServed) return;
 
@@ -182,14 +142,12 @@ function clickBackspace() {
   updateScreen();
 }
 
-// When you click a treat operator (☕, 🍵, 🧁, 🍓)
 function clickOperator(treatName) {
   const numValue = parseFloat(currentNumber);
 
   if (firstNumber === null) {
     firstNumber = numValue;
   } else if (!startNewNumber) {
-    // If we already typed two numbers, calculate the result first!
     const result = doMath(firstNumber, numValue, selectedTreat ?? "latte");
     firstNumber = result;
     currentNumber = makeNumberLookNice(result);
@@ -201,7 +159,6 @@ function clickOperator(treatName) {
   updateScreen();
 }
 
-// When you click the AC button (All Clear!)
 function clickClear() {
   currentNumber = "0";
   firstNumber = null;
@@ -212,7 +169,6 @@ function clickClear() {
   updateScreen();
 }
 
-// When you click the Serve button (equals!)
 function clickServe() {
   if (firstNumber === null || selectedTreat === null) {
     return;
@@ -227,7 +183,6 @@ function clickServe() {
     return;
   }
 
-  // Print receipt!
   currentReceipt = {
     items: [{ name: "Order", value: makeNumberLookNice(secondNumber) }],
     total: makeNumberLookNice(result),
@@ -240,9 +195,7 @@ function clickServe() {
   updateScreen();
 }
 
-// --- CONNECTING EVENTS TO BUTTONS ---
 
-// Loop through all number buttons and listen for clicks!
 document.querySelectorAll(".btn-digit").forEach((button) => {
   button.addEventListener("click", () => {
     clickDigit(button.getAttribute("data-digit"));
@@ -255,7 +208,6 @@ if (dotButton) dotButton.addEventListener("click", clickDot);
 if (serveHeartButton) serveHeartButton.addEventListener("click", clickServe);
 if (serveLargeButton) serveLargeButton.addEventListener("click", clickServe);
 
-// Treat buttons connections
 const opBerry = document.getElementById("btn-op-berry");
 const opCupcake = document.getElementById("btn-op-cupcake");
 const opMatcha = document.getElementById("btn-op-matcha");
@@ -266,8 +218,7 @@ if (opCupcake) opCupcake.addEventListener("click", () => clickOperator("cupcake"
 if (opMatcha) opMatcha.addEventListener("click", () => clickOperator("matcha"));
 if (opLatte) opLatte.addEventListener("click", () => clickOperator("latte"));
 
-// --- DYNAMIC SPARKLES EFFECT ---
-// This places cute sparkling stars around the screen
+
 function createSparkles() {
   const container = document.getElementById("sparkles-container");
   if (!container) return;
@@ -279,7 +230,6 @@ function createSparkles() {
     sparkle.className = "absolute text-yellow-400 pointer-events-none";
     sparkle.innerText = "✦";
 
-    // Place them randomly
     const top = 10 + Math.random() * 80;
     const left = 10 + Math.random() * 80;
     const size = 8 + Math.round(Math.random() * 10);
@@ -294,12 +244,7 @@ function createSparkles() {
     container.appendChild(sparkle);
   }
 }
-
-// Make sparkles when the page starts!
 createSparkles();
-
-// --- KEYBOARD SUPPORT ---
-// Let's also listen to the computer keys!
 document.addEventListener("keydown", (event) => {
   const key = event.key;
 
