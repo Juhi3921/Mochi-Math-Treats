@@ -86,7 +86,7 @@ function drawReceipt() {
   const itemsHtml = currentReceipt.items
     .map(
       (item) => `
-    <div class="flex justify-between">
+    <div class="flex-between">
       <span>${item.name}</span>
       <span>${item.value}</span>
     </div>
@@ -96,12 +96,12 @@ function drawReceipt() {
 
   // Insert the receipt paper layout into our container
   receiptContainer.innerHTML = `
-    <div class="receipt-paper mt-6 text-sm leading-6">
-      <div class="text-center font-display text-base font-bold">— Mochi Math Café —</div>
-      <div class="my-2 border-t border-dashed border-cocoa/30"></div>
+    <div class="receipt-paper">
+      <div style="text-align: center; font-weight: bold; font-family: var(--font-display);">— Mochi Math Café —</div>
+      <div class="dashed-line"></div>
       ${itemsHtml}
-      <div class="my-2 border-t border-dashed border-cocoa/30"></div>
-      <div class="flex justify-between font-bold">
+      <div class="dashed-line"></div>
+      <div class="flex-between font-bold">
         <span>Total</span>
         <span>${currentReceipt.total}</span>
       </div>
