@@ -536,3 +536,47 @@ h1, h2, h3, h4 {
 .font-bold {
   font-weight: 700;
 }
+
+/* --- 9. FLOATING HEART ON CLICKS --- */
+.floating-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  color: #ffb8c6; /* Cute pink */
+  font-size: 24px;
+  transform: translate(-50%, -50%);
+  animation: mm-heart-float 0.8s ease-out forwards;
+}
+
+@keyframes mm-heart-float {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--target-x)), -100px) scale(1.4);
+  }
+}
+
+/* Cat Happy Dance (Jumping Wiggle!) */
+.cat-happy-dance {
+  animation: mm-happy-dance 0.5s ease-in-out 2;
+}
+
+@keyframes mm-happy-dance {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(-16px) scaleY(1.08) scaleX(0.92); /* Stretch on jump */
+  }
+  50% {
+    transform: translateY(0) scale(1);
+  }
+  75% {
+    transform: scaleY(0.92) scaleX(1.08); /* Squash on landing */
+  }
+}
+
+
