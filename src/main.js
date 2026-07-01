@@ -1,12 +1,8 @@
-// --- CALCULATOR VARIABLES (These keep track of our math!) ---
 
-// This is the number currently shown on our cute calculator screen
 let currentNumber = "0";
 
-// This stores the first number when you want to do a math sum, like 5 + 3. (5 is the first number!)
 let firstNumber = null;
 
-// This stores the sweet treat operation we want to do (+, -, *, /)
 let selectedTreat = null;
 
 let startNewNumber = false;
@@ -24,10 +20,6 @@ const dotButton = document.getElementById("btn-dot");
 const serveHeartButton = document.getElementById("btn-serve-heart");
 const serveLargeButton = document.getElementById("btn-serve-large");
 
-// --- HELPER FUNCTIONS ---
-
-// This function makes numbers look nice on the screen!
-// If it's too long, it rounds it up. If you divide by zero, it says "oops"!
 function makeNumberLookNice(num) {
   if (!Number.isFinite(num)) {
     return "oops";
@@ -43,7 +35,6 @@ function makeNumberLookNice(num) {
   return text;
 }
 
-// This function does the actual math when you choose a treat!
 function doMath(num1, num2, treat) {
   if (treat === "latte") {
     return num1 + num2; // Latte is Plus (+)
@@ -61,15 +52,6 @@ function doMath(num1, num2, treat) {
   return num1 / num2;
 }
 
-// This function gives us a cute name and sign for our math treats!
-function getTreatDetails(treat) {
-  if (treat === "latte") return "☕ Latte (+)";
-  if (treat === "matcha") return "🍵 Matcha (-)";
-  if (treat === "cupcake") return "🧁 Cupcake (×)";
-  return "🍓 Strawberry (÷)";
-}
-
-// This function updates what you see on the screen and prints the receipt
 function updateScreen() {
   if (displayElement) {
     displayElement.innerText = currentNumber;
@@ -99,7 +81,6 @@ function drawReceipt() {
     )
     .join("");
 
-  // Insert the receipt paper layout into our container
   receiptContainer.innerHTML = `
     <div class="receipt-paper">
       <div style="text-align: center; font-weight: bold; font-family: var(--font-display);">— Mochi Math Café —</div>
@@ -114,7 +95,6 @@ function drawReceipt() {
   `;
 }
 
-// This function changes the cat's cheek colors to match the snack you ordered!
 function changeCatCheeks(treat) {
   const blushLeft = document.querySelector(".cat-blush-left");
   const blushRight = document.querySelector(".cat-blush-right");
@@ -143,9 +123,7 @@ function changeCatCheeks(treat) {
   }
 }
 
-// --- SOUND EFFECTS (Web Audio API Synthesizers) ---
 
-// Plays a cute "pop!" sound when clicking any button
 function playPopSound() {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   if (!AudioContext) return;
@@ -199,9 +177,7 @@ function playChirpSound() {
   });
 }
 
-// --- VISUAL EFFECTS ---
 
-// Spawns a floating heart at the mouse pointer coordinate
 function spawnHeart(event) {
   if (!event || !event.clientX) return;
 
@@ -209,11 +185,9 @@ function spawnHeart(event) {
   heart.className = "floating-heart";
   heart.innerText = "♥";
 
-  // Position it exactly where the cursor is
   heart.style.left = `${event.clientX}px`;
   heart.style.top = `${event.clientY}px`;
 
-  // Random side drift so it floats in different directions
   const driftX = (Math.random() * 80 - 40).toFixed(0);
   heart.style.setProperty("--target-x", `${driftX}px`);
 
@@ -255,7 +229,6 @@ function clickDigit(digit) {
   updateScreen();
 }
 
-// When you click the dot (.) button
 function clickDot() {
   if (justServed) {
     currentNumber = "0.";
@@ -281,7 +254,6 @@ function clickDot() {
   updateScreen();
 }
 
-// When you click the backspace (⌫) button
 function clickBackspace() {
   if (startNewNumber || justServed) return;
 
@@ -315,7 +287,6 @@ function clickOperator(treatName) {
   updateScreen();
 }
 
-// When you click the AC button (All Clear!)
 function clickClear() {
   currentNumber = "0";
   firstNumber = null;
@@ -324,13 +295,11 @@ function clickClear() {
   startNewNumber = false;
   justServed = false;
 
-  // Reset cheeks back to default pink
   changeCatCheeks(null);
 
   updateScreen();
 }
 
-// When you click the Serve button (equals!)
 function clickServe() {
   if (firstNumber === null || selectedTreat === null) {
     return;
@@ -345,25 +314,10 @@ function clickServe() {
     return;
   }
 
-  // Print receipt with full details of the calculation
   currentReceipt = {
-    items: [
-      { name: "First Number", value: makeNumberLookNice(firstNumber) },
-      { name: "Selected Treat", value: getTreatDetails(selectedTreat) },
-      { name: "Second Number", value: makeNumberLookNice(secondNumber) }
-    ],
+    items: [{ name: "Order", value: makeNumberLookNice(secondNumber) }],
     total: makeNumberLookNice(result),
   };
-
-  // Make the cat do a happy wiggle dance!
-  const cat = document.querySelector(".pixel-cat-container");
-  if (cat) {
-    cat.classList.add("cat-happy-dance");
-    setTimeout(() => {
-      cat.classList.remove("cat-happy-dance");
-    }, 1000);
-  }
-
   currentNumber = makeNumberLookNice(result);
   firstNumber = null;
   selectedTreat = null;
@@ -376,9 +330,7 @@ function clickServe() {
   updateScreen();
 }
 
-// --- CONNECTING EVENTS TO BUTTONS ---
 
-// Loop through all calculator buttons to add pop sounds and floating hearts on click!
 document.querySelectorAll(".cafe-button").forEach((button) => {
   button.addEventListener("click", (event) => {
     playPopSound();
@@ -399,7 +351,6 @@ if (dotButton) dotButton.addEventListener("click", clickDot);
 if (serveHeartButton) serveHeartButton.addEventListener("click", clickServe);
 if (serveLargeButton) serveLargeButton.addEventListener("click", clickServe);
 
-// Treat buttons
 const opBerry = document.getElementById("btn-op-berry");
 const opCupcake = document.getElementById("btn-op-cupcake");
 const opMatcha = document.getElementById("btn-op-matcha");
@@ -410,7 +361,6 @@ if (opCupcake) opCupcake.addEventListener("click", () => clickOperator("cupcake"
 if (opMatcha) opMatcha.addEventListener("click", () => clickOperator("matcha"));
 if (opLatte) opLatte.addEventListener("click", () => clickOperator("latte"));
 
-// --- INTERACTIVE PET-THE-CAT MASCOT ---
 const catContainer = document.querySelector(".pixel-cat-container");
 const speechBubble = document.getElementById("speech-bubble");
 const catMouth = document.querySelector(".cat-mouth");
@@ -424,7 +374,6 @@ if (catContainer) {
     // Make cat happy face
     if (catMouth) catMouth.innerText = "▽";
     
-    // Make cheeks blush extra bright pink during petting!
     if (blushLeft) blushLeft.style.background = "#ff69b4";
     if (blushRight) blushRight.style.background = "#ff69b4";
     
@@ -460,7 +409,7 @@ function createSparkles() {
 
     sparkle.style.top = `${top}%`;
     sparkle.style.left = `${left}%`;
-    sparkle.style.fontSize = `${size}px`;
+    sparkle.style.fontSize = `${size}px`; 
     sparkle.style.animation = "mm-sparkle 5s ease-in-out infinite";
     sparkle.style.animationDelay = `${delay}s`;
 
@@ -469,7 +418,6 @@ function createSparkles() {
 }
 createSparkles();
 
-// --- KEYBOARD SUPPORT ---
 document.addEventListener("keydown", (event) => {
   const key = event.key;
 
